@@ -1,9 +1,9 @@
 from django import forms
-from profiles.models import Profile
+from cropper.models import Avatar
 
 class AvatarForm(forms.ModelForm):
     class Meta:
-        model = Profile
+        model = Avatar
         fields = ('photo',)
 
 class AvatarCropForm(forms.Form):

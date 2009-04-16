@@ -5,8 +5,8 @@ from django.conf import settings
 from PIL import Image
 from django.contrib.auth.decorators import login_required
 
-from profiles.forms import AvatarForm, AvatarCropForm
-from profiles.models import Profile
+from cropper.forms import AvatarForm, AvatarCropForm
+from cropper.models import Avatar
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
@@ -18,40 +18,35 @@ def avatar_upload(request):
     """
     Avatar choose
     """
-    profile, created = Profile.objects.get_or_create(user = request.user)
+    avatar, created = Avatar.objects.get_or_create(user = request.user)
 
     if request.method == "POST":
         form = AvatarForm()
-        form = AvatarForm(request.POST, request.FILES, instance=profile)
+        form = AvatarForm(request.POST, request.FILES, instance=avatar)
         if form.is_valid():
-            profile = form.save()
-            image = Image.open(profile.photo.path)
-            image.thumbnail((480, 480), Image.ANTIALIAS)
-            image_name = os.path.basename(profile.photo.path)
-            newdir_name = os.path.join(settings.MEDIA_ROOT, profile.avatar.field.upload_to)
-            if not os.path.exists(newdir_name):
-                os.mkdir(newdir_name)
-            new_name = os.path.join(profile.avatar.field.upload_to, image_name)
-            new_path = os.path.join(settings.MEDIA_ROOT, new_name)
-            image.convert("RGB").save(new_path, "JPEG")
-            profile.avatar = new_name
-            profile.save()
-            return HttpResponseRedirect(reverse("profiles_avatar_crop"))
+            avatar = form.save()
+            image = Image.open(avatar.photo.path)
+            image.thumbnail((490, 490), Image.ANTIALIAS)
+            width, height = image.size
+            new_height = 490*height/width
+            image = image.resize((490, new_height), Image.ANTIALIAS)
+            image.convert("RGB").save(avatar.photo.path, "JPEG")
+            return HttpResponseRedirect(reverse("cropper_avatar_crop"))
     else:
         form = AvatarForm()
 
-    return render_to_response("profiles/avatar_upload.html", { 'form': form }, context_instance=RequestContext(request))
+    return render_to_response("cropper/avatar_upload.html", { 'form': form, 'avatar':avatar }, context_instance=RequestContext(request))
 
 @login_required
 def avatar_crop(request):
     """
     Avatar management
     """
-    profile = get_object_or_404(Profile, user=request.user)
+    avatar = get_object_or_404(Avatar, user=request.user)
     if not request.method == "POST":
         form = AvatarCropForm()
     else:
-        image = Image.open(profile.avatar.path)
+        image = Image.open(avatar.photo.path)
         form = AvatarCropForm(image, request.POST)
         if form.is_valid():
             top = int(form.cleaned_data.get('top'))
@@ -63,10 +58,17 @@ def avatar_crop(request):
             image = image.crop(box)
             if image.mode not in ('L', 'RGB'):
                 image = image.convert('RGB')
-
-            image.save(profile.avatar.path)
+            image_name = os.path.basename(avatar.photo.path)
+            newdir_name = os.path.join(settings.MEDIA_ROOT, avatar.cropped.field.upload_to)
+            if not os.path.exists(newdir_name):
+                os.mkdir(newdir_name)
+            new_name = os.path.join(avatar.cropped.field.upload_to, image_name)
+            new_path = os.path.join(settings.MEDIA_ROOT, new_name)
+            image.save(new_path)
+            avatar.cropped = new_name
+            avatar.save()
             request.user.message_set.create(message="Your new avatar has been saved successfully.")
-            return HttpResponseRedirect(reverse("profiles_avatar_upload"))
+            return HttpResponseRedirect(reverse("cropper_avatar_upload"))
 
-    return render_to_response("profiles/avatar_crop.html", {'profile': profile, 'form': form}, context_instance=RequestContext(request))
+    return render_to_response("cropper/avatar_crop.html", {'avatar': avatar, 'form': form}, context_instance=RequestContext(request))
 

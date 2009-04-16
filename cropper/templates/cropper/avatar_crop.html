@@ -5,27 +5,56 @@
 <script type="text/javascript" src="/static/js/jquery.imgareaselect-0.7.min.js"></script>
 <script type="text/javascript">
    $(document).ready(function (){
+        function adjust(el, selection) {
+            var scaleX = $(el).width() / (selection.width || 1);
+            var scaleY = $(el).height() / (selection.width || 1);
+            $(el+' img').css({
+                width: Math.round(scaleX*$('#avatar').width() ) + 'px',
+                height: Math.round(scaleY*$('#avatar').height() ) + 'px',
+                marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
+                marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
+            });
+        }
+        function preview(img, selection) {
+            adjust('#img_small_preview', selection);
+            adjust('#img_big_preview', selection);
+        }
         $('img#avatar').imgAreaSelect({
             aspectRatio: "4:4",
-            minHeight: 49,
-            minWidth: 49,
             onSelectEnd:function(img, selection) {
                 $('#id_top').val(selection.y1);
                 $('#id_left').val(selection.x1);
                 $('#id_right').val(selection.x2);
                 $('#id_bottom').val(selection.y2);
-            }
+            },
+            onSelectChange: preview
         });
    });
 </script>
 {% endblock %}
 
 {% block content %}
-<div id="picture">
-    <img id="avatar" src="{{ profile.avatar.url }}" alt="Avatar" />
+<div class="left_column">
+    <div id="picture">
+        <img id="avatar" src="{{ avatar.photo.url }}" alt="Avatar" />
+    </div>
+    <form id="crop_form" action="." method="post">
+        {{ form }}
+        <input type="submit" value="Crop" />
+    </form>
 </div>
-<form id="crop_form" action="." method="post">
-    {{ form }}
-    <input type="submit" value="Crop" />
-</form>
+<div class="right_column">
+    <div class="panel">
+        <h2>Small preview</h2>
+        <div class="img_preview" id="img_small_preview">
+            <img src="{{ avatar.photo.url }}" />
+        </div>
+    </div>
+    <div class="panel">
+        <h2>Large preview</h2>
+        <div class="img_preview" id="img_big_preview">
+            <img src="{{ avatar.photo.url }}" />
+        </div>
+    </div>
+</div>
 {% endblock %}
