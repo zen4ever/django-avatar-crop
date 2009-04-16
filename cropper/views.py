@@ -26,10 +26,10 @@ def avatar_upload(request):
         if form.is_valid():
             avatar = form.save()
             image = Image.open(avatar.photo.path)
-            image.thumbnail((490, 490), Image.ANTIALIAS)
+            image.thumbnail((settings.CROPPER_ORIGINAL_WIDTH, settings.CROPPER_ORIGINAL_WIDTH), Image.ANTIALIAS)
             width, height = image.size
-            new_height = 490*height/width
-            image = image.resize((490, new_height), Image.ANTIALIAS)
+            new_height = settings.CROPPER_ORIGINAL_WIDTH*height/width
+            image = image.resize((settings.CROPPER_ORIGINAL_WIDTH, new_height), Image.ANTIALIAS)
             image.convert("RGB").save(avatar.photo.path, "JPEG")
             return HttpResponseRedirect(reverse("cropper_avatar_crop"))
     else:

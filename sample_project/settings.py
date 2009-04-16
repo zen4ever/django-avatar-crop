@@ -86,3 +86,5 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'cropper',
 )
+
+CROPPER_ORIGINAL_WIDTH=490

@@ -7,7 +7,7 @@ Replace these with more appropriate tests for your application.
 
 from django.test import TestCase
 from django.test import Client  
-from profiles.models import Profile
+from cropper.models import Avatar
 from django.core.urlresolvers import reverse
 import os.path
 from django.conf import settings
@@ -24,7 +24,7 @@ class SimpleTest(TestCase):
         c = Client()
         result = c.login(username='andrew', password='andrew')
         self.assertEquals(result, True)
-        response = c.get(reverse('profiles_avatar_upload'))
+        response = c.get(reverse('cropper_avatar_upload'))
         self.assertEquals(response.status_code, 200)
 
     def test_image_upload(self):
@@ -35,15 +35,13 @@ class SimpleTest(TestCase):
         f = open(os.path.join(settings.PROJECT_PATH, settings.STATIC_ROOT, 'test/zeratul.jpg'))
         result = c.login(username='andrew', password='andrew')
         self.assertEquals(result, True)
-        response = c.post(reverse('profiles_avatar_upload'), {'photo':f})
+        response = c.post(reverse('cropper_avatar_upload'), {'photo':f})
         self.assertEquals(response.status_code, 302)
-        profile = Profile.objects.filter()[0]
+        avatar = Avatar.objects.filter()[0]
         import re
         pre = re.compile(r'^photos/zeratul(_*)\.jpg$')
-        are = re.compile(r'^avatars/zeratul(_*)\.jpg$')
-        self.failIfEqual(pre.match(profile.photo.name), None)
-        self.failIfEqual(are.match(profile.avatar.name), None)
-        profile.delete()
+        self.failIfEqual(pre.match(avatar.photo.name), None)
+        avatar.delete()
 
 __test__ = {"doctest": """
 Another way to test that 1 + 1 is equal to 2.
