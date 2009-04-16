@@ -3,11 +3,60 @@
 <html>
     <head> 
         <title>Avatar application</title>
+        <style type="text/css">
+            body {
+               text-align: center;
+            }
+            .container {
+                width:740px;
+                margin: 0 auto;
+                padding: 0;
+                text-align:left;
+            }
+            .left_column {
+                float: left;
+                width: 490px;
+            }
+            .right_column {
+                float: left:
+                width: 250px;
+            }
+            .img_preview {
+                position:relative;
+                overflow:hidden;
+                border: 1px solid #000;
+            }
+            .img_preview img {
+                position:relative;
+                margin:0;
+            }
+            #img_small_preview {
+                width:49px;
+                height:49px;
+                margin: 0 auto;
+            }
+            #img_small_preview img {
+                width:49px;
+            }
+            #img_big_preview {
+                width:200px;
+                height:200px;
+                margin: 0 auto;
+            }
+            #img_big_preview img {
+                width:200px;
+            }
+            .panel {
+                text-align:center;
+            }
+        </style>
         {% block extrahead %}
         {% endblock %}
     </head>
     <body>
-    {% block content %}
-    {% endblock %}
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
     </body>
 </html>

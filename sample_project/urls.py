@@ -14,7 +14,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/(.*)', admin.site.root),
-    (r'^profiles/', include('profiles.urls')),
+    (r'^cropper/', include('cropper.urls')),
 )
 
 from django.conf import settings
