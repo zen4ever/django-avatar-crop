@@ -69,6 +69,9 @@ def avatar_crop(request):
             avatar.save()
             request.user.message_set.create(message="Your new avatar has been saved successfully.")
             return HttpResponseRedirect(reverse("cropper_avatar_upload"))
-
-    return render_to_response("cropper/avatar_crop.html", {'avatar': avatar, 'form': form}, context_instance=RequestContext(request))
+    if (avatar.photo.width<=avatar.photo.height):
+        result = "width"
+    else:
+        result = "height"
+    return render_to_response("cropper/avatar_crop.html", {'dim':result, 'avatar': avatar, 'form': form}, context_instance=RequestContext(request))
 
