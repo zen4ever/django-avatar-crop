@@ -14,10 +14,11 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/(.*)', admin.site.root),
-    (r'^cropper/', include('cropper.urls')),
+    (r'^avatar/', include('avatar.urls')),
+    (r'^avatar_crop/', include('avatar_crop.urls')),
     url(r'^accounts/login/', 'django.contrib.auth.views.login', name='auth_login'),
     url(r'^accounts/logout/', 'django.contrib.auth.views.logout', name='auth_logout'),
-    url(r'^$', 'django.views.generic.simple.redirect_to', {'url': '/cropper/avatar_upload/'}),
+    url(r'^$', 'django.views.generic.simple.redirect_to', {'url': '/avatar/change/'}),
 )
 
 from django.conf import settings

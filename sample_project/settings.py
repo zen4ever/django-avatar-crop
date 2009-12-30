@@ -84,7 +84,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
-    'cropper',
+    'avatar_crop',
+    'avatar',
 )
 
 CROPPER_ORIGINAL_WIDTH=490

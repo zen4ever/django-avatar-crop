@@ -1,10 +1,10 @@
 from django import forms
-from cropper.models import Avatar
+from avatar.models import Avatar
 
 class AvatarForm(forms.ModelForm):
     class Meta:
         model = Avatar
-        fields = ('photo',)
+        fields = ('avatar',)
 
 class AvatarCropForm(forms.Form):
     top = forms.IntegerField(widget=forms.HiddenInput)
