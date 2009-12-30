@@ -16,6 +16,8 @@ try:
 except ImportError:
     from StringIO import StringIO
 
+from avatar_crop import AVATAR_CROP_MAX_SIZE
+
 @login_required
 def avatar_crop(request, id=None):
     """
@@ -29,7 +31,7 @@ def avatar_crop(request, id=None):
         form = AvatarCropForm()
     else:
         try:
-            orig = avatar.avatar.storage.open(avatar.avatar.name, 'rb').read()
+            orig = avatar.avatar.storage.open(avatar.avatar_name(AVATAR_CROP_MAX_SIZE), 'rb').read()
             image = Image.open(StringIO(orig))
         except IOError:
             return
@@ -41,6 +43,7 @@ def avatar_crop(request, id=None):
             bottom = int(form.cleaned_data.get('bottom'))
 
             box = [ left, top, right, bottom ]
+            (w, h) = image.size
             image = image.crop(box)
             if image.mode != 'RGB':
                 image = image.convert('RGB')
@@ -57,5 +60,5 @@ def avatar_crop(request, id=None):
         result = "width"
     else:
         result = "height"
-    return render_to_response("avatar_crop/crop.html", {'dim':result, 'avatar': avatar, 'form': form}, context_instance=RequestContext(request))
+    return render_to_response("avatar_crop/crop.html", {'AVATAR_CROP_MAX_SIZE':AVATAR_CROP_MAX_SIZE, 'dim':result, 'avatar': avatar, 'form': form}, context_instance=RequestContext(request))
 

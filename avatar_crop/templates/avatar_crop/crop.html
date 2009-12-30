@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load avatar_crop_tags %}
+
 {% block extrahead %}
 <style type="text/css">
         .img_preview {
@@ -66,7 +68,7 @@
 {% block content %}
 <div class="left_column">
     <div id="picture">
-        <img id="avatar" src="{{ avatar.avatar.url }}" alt="Avatar" />
+        <img id="avatar" src="{% avatar_crop_url avatar 450 %}" alt="Avatar"/>
     </div>
     <form id="crop_form" action="." method="post">
         {{ form }}
@@ -77,13 +79,13 @@
     <div class="panel">
         <h2>Small preview</h2>
         <div class="img_preview" id="img_small_preview">
-            <img src="{{ avatar.avatar.url }}" />
+            <img src="{% avatar_crop_url avatar 450 %}" alt="Small preview" />
         </div>
     </div>
     <div class="panel">
         <h2>Large preview</h2>
         <div class="img_preview" id="img_big_preview">
-            <img src="{{ avatar.avatar.url }}" />
+            <img src="{% avatar_crop_url avatar 450 %}" alt="Large preview" />
         </div>
     </div>
 </div>
