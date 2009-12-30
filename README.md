@@ -4,3 +4,5 @@ to crop your avatar images and works with django-avatar.
 If you choose to crop your current avatar, it will create a
 new Avatar model from the cropped image, and will make it your
 primary avatar
+
+![Screenshot](http://zen4ever.s3.amazonaws.com/avatar_crop_screenshot.png)
