@@ -1,12 +1,6 @@
-For those who tired of deailing with user avatar
-pictures. 
+This is a simple application, which adds ability
+to crop your avatar images and works with django-avatar.
 
-Django-cropper is a simple django application
-to allow users to crop upload their avatar, 
-and crop it to perfect square shape right after uploading. 
-
-It has Avatar model which stores both original version
-(rescaled to width specified in CROPPER_ORIGINAL_WIDTH)
-and cropped version. 
-Cropped version then can be easily scaled to any size
-using PIL, or excellent sorl-thumbnail application.
+If you choose to crop your current avatar, it will create a
+new Avatar model from the cropped image, and will make it your
+primary avatar
