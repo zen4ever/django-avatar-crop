@@ -1,7 +1,7 @@
 {% extends "avatar/base.html" %}
 {% load avatar_tags %}
 
-{% block content %}
+{% block body %}
     <p>Your current avatar: </p>
     {% avatar user %}
     <a href="{% url avatar_crop_default %}">Crop</a>

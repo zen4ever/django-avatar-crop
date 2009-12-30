@@ -22,12 +22,15 @@
                 width: 250px;
             }
         </style>
-        {% block extrahead %}
+        {% block extra_head %}
         {% endblock %}
     </head>
     <body>
     <div class="container">
-        {% block content %}
+        {% block body %}
+        {% endblock %}
+        <script type="text/javascript" src="/static/js/jquery-1.3.2.min.js"></script>
+        {% block extra_body %}
         {% endblock %}
     </div>
     </body>
