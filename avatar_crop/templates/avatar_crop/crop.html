@@ -29,6 +29,13 @@
         #img_big_preview img {
             {{ dim }}:200px;
         }
+        #avatar {
+        {% ifequal dim "width" %}
+            height:{{ AVATAR_CROP_MAX_SIZE }}px;
+        {% else %}
+            width:{{ AVATAR_CROP_MAX_SIZE }}px;
+        {% endifequal %}
+        }
         .panel {
             text-align:center;
         }
@@ -68,7 +75,7 @@
 {% block content %}
 <div class="left_column">
     <div id="picture">
-        <img id="avatar" src="{% avatar_crop_url avatar 450 %}" alt="Avatar"/>
+        <img id="avatar" src="{{ avatar.avatar.url }}" alt="Avatar"/>
     </div>
     <form id="crop_form" action="." method="post">
         {{ form }}
@@ -79,13 +86,13 @@
     <div class="panel">
         <h2>Small preview</h2>
         <div class="img_preview" id="img_small_preview">
-            <img src="{% avatar_crop_url avatar 450 %}" alt="Small preview" />
+            <img src="{{ avatar.avatar.url }}" alt="Small preview" />
         </div>
     </div>
     <div class="panel">
         <h2>Large preview</h2>
         <div class="img_preview" id="img_big_preview">
-            <img src="{% avatar_crop_url avatar 450 %}" alt="Large preview" />
+            <img src="{{ avatar.avatar.url }}" alt="Large preview" />
         </div>
     </div>
 </div>
