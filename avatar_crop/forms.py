@@ -1,5 +1,6 @@
 from django import forms
 from avatar.models import Avatar
+from avatar_crop import AVATAR_CROP_MIN_SIZE
 
 class AvatarForm(forms.ModelForm):
     class Meta:
@@ -7,10 +8,10 @@ class AvatarForm(forms.ModelForm):
         fields = ('avatar',)
 
 class AvatarCropForm(forms.Form):
-    top = forms.IntegerField(widget=forms.HiddenInput)
-    left = forms.IntegerField(widget=forms.HiddenInput)
-    right = forms.IntegerField(widget=forms.HiddenInput)
-    bottom = forms.IntegerField(widget=forms.HiddenInput)
+    top = forms.IntegerField(widget=forms.HiddenInput, required=False)
+    left = forms.IntegerField(widget=forms.HiddenInput, required=False)
+    right = forms.IntegerField(widget=forms.HiddenInput, required=False)
+    bottom = forms.IntegerField(widget=forms.HiddenInput, required=False)
 
     def __init__(self, image=None, *args, **kwargs):
         self.image = image
@@ -20,15 +21,10 @@ class AvatarCropForm(forms.Form):
         if not self.cleaned_data.get('top') and \
             not self.cleaned_data.get('bottom') and \
             not self.cleaned_data.get('left')  and \
-            not self.cleaned_data.get('right') and \
-            self.image:
-                size = self.image.size
-                self.cleaned_data['top'] = 0
-                self.cleaned_data['bottom'] = size[1]
-                self.cleaned_data['left'] = 0
-                self.cleaned_data['right'] = size[0]
+            not self.cleaned_data.get('right'):
+            raise forms.ValidationError('You need to make a selection')
 
-        elif self.cleaned_data.get('right') is None or self.cleaned_data.get('left') is None or int(self.cleaned_data.get('right')) - int(self.cleaned_data.get('left')) < 49:
-            raise forms.ValidationError("You must select a portion of the image with a minimum of 49x49 pixels.")
+        elif self.cleaned_data.get('right') is None or self.cleaned_data.get('left') is None or int(self.cleaned_data.get('right')) - int(self.cleaned_data.get('left')) < AVATAR_CROP_MIN_SIZE:
+            raise forms.ValidationError("You must select a portion of the image with a minimum of %(size)dx%(size)d pixels." % {'size':AVATAR_CROP_MIN_SIZE})
 
         return self.cleaned_data
