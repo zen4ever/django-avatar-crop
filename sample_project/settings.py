@@ -53,6 +53,13 @@ STATIC_URL = '/static/'
 # Examples: "http://foo.com/media/", "/media/".
 ADMIN_MEDIA_PREFIX = '/admin-media/'
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.auth",
+    "django.core.context_processors.request",
+    "django.core.context_processors.media",
+    "context_processors.static_processor",
+)
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'n7)rr3uyu*tudvei)l5=yd*^ij_)m0(vvh7%=p=r0lx6v(t@d#'
 

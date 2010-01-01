@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "avatar/base.html" %}
 
 {% load avatar_crop_tags %}
 
@@ -43,7 +43,7 @@
 {% endblock %}
 
 {% block extra_body %}
-<script type="text/javascript" src="/static/js/jquery.imgareaselect-0.7.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.imgareaselect-0.7.min.js"></script>
 <script type="text/javascript">
    $(document).ready(function (){
         function adjust(el, selection) {
