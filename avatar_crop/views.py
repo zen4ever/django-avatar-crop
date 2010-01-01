@@ -17,6 +17,7 @@ except ImportError:
     from StringIO import StringIO
 
 from avatar_crop import AVATAR_CROP_MAX_SIZE
+from avatar import AVATAR_STORAGE_DIR
 
 @login_required
 def avatar_crop(request, id=None):
@@ -58,7 +59,8 @@ def avatar_crop(request, id=None):
             thumb = StringIO()
             image.save(thumb, "JPEG")
             thumb_file = ContentFile(thumb.getvalue())
-            thumb = avatar.avatar.storage.save(avatar.avatar_name('_cropped_'), thumb_file)
+            base_name, ext = os.path.splitext(avatar.avatar.name)
+            thumb = avatar.avatar.storage.save("%s_cropped%s" % (base_name, ext), thumb_file)
             Avatar.objects.filter(id=avatar.id).update(primary=False)
             new_avatar = Avatar(user=request.user, primary=True, avatar=thumb)
             new_avatar.save()
