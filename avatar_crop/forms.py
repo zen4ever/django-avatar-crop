@@ -1,4 +1,6 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
+
 from avatar.models import Avatar
 from avatar_crop import AVATAR_CROP_MIN_SIZE
 
@@ -22,9 +24,9 @@ class AvatarCropForm(forms.Form):
             not self.cleaned_data.get('bottom') and \
             not self.cleaned_data.get('left')  and \
             not self.cleaned_data.get('right'):
-            raise forms.ValidationError('You need to make a selection')
+            raise forms.ValidationError(_('You need to make a selection'))
 
         elif self.cleaned_data.get('right') is None or self.cleaned_data.get('left') is None or int(self.cleaned_data.get('right')) - int(self.cleaned_data.get('left')) < AVATAR_CROP_MIN_SIZE:
-            raise forms.ValidationError("You must select a portion of the image with a minimum of %(size)dx%(size)d pixels." % {'size':AVATAR_CROP_MIN_SIZE})
+            raise forms.ValidationError(_("You must select a portion of the image with a minimum of %(size)dx%(size)d pixels.") % {'size': AVATAR_CROP_MIN_SIZE})
 
         return self.cleaned_data

@@ -11,6 +11,7 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
+from django.utils.translation import ugettext_lazy as _
 try:
     from cStringIO import StringIO
 except ImportError:
@@ -64,7 +65,7 @@ def avatar_crop(request, id=None):
             Avatar.objects.filter(id=avatar.id).update(primary=False)
             new_avatar = Avatar(user=request.user, primary=True, avatar=thumb)
             new_avatar.save()
-            request.user.message_set.create(message="Your new avatar has been saved successfully.")
+            request.user.message_set.create(message=_("Your new avatar has been saved successfully."))
             return HttpResponseRedirect(reverse("avatar_change"))
     return render_to_response("avatar_crop/crop.html", {'AVATAR_CROP_MAX_SIZE':AVATAR_CROP_MAX_SIZE, 'dim':result, 'avatar': avatar, 'form': form}, context_instance=RequestContext(request))
 
