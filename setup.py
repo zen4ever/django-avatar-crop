@@ -2,7 +2,7 @@ from distutils.core import setup
 import os
 
 setup(
-    name = 'django_avatar_crop',
+    name = 'django-avatar-crop',
     packages = ['avatar_crop', 'avatar_crop.templatetags'],
     package_data = {
         'avatar_crop': [
