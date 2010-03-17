@@ -1,0 +1,5 @@
+include LICENSE
+include README.md
+recursive-include avatar_crop/media/avatar_crop/* *.css *.gif *.js
+recursive-include avatar_crop/templates/avatar_crop *.html
+recursive-include avatar/locale/*/LC_MESSAGES *.mo *.po

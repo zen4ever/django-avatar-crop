@@ -7,6 +7,7 @@ setup(
     package_data = {
         'avatar_crop': [
             'templates/avatar_crop/*.html',
+            'locale/*/LC_MESSAGES/*',
             'media/avatar_crop/js/*.js',
             'media/avatar_crop/img/*.gif',
             'media/avatar_crop/css/*.css',
