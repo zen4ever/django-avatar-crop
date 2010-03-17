@@ -1,0 +1,33 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: django-avatar-crop\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-03-17 14:05+0100\n"
+"PO-Revision-Date: 2010-03-17 14:05+0100\n"
+"Last-Translator: Jannis Leidel <jannis@leidel.info>\n"
+"Language-Team: de <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: forms.py:27
+msgid "You need to make a selection"
+msgstr "Sie müssen einen Bereich markieren"
+
+#: forms.py:30
+#, python-format
+msgid ""
+"You must select a portion of the image with a minimum of %(size)dx%(size)d "
+"pixels."
+msgstr ""
+"Sie müssen einen Teil des Bildes markieren, mindestens aber %(size)dx%(size)"
+"d Pixel."
+
+#: views.py:80
+msgid "Your new avatar has been saved successfully."
+msgstr "Ihr neuer Avatar wurde erfolgreich gespeichert."
