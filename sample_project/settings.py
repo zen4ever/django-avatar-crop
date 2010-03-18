@@ -57,7 +57,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.auth",
     "django.core.context_processors.request",
     "django.core.context_processors.media",
-    "context_processors.static_processor",
+    'staticfiles.context_processors.static_url',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -91,6 +91,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
+    'staticfiles',
     'avatar_crop',
     'avatar',
 )
