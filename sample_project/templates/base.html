@@ -27,6 +27,13 @@
     </head>
     <body>
     <div class="container">
+        <div class="nav">
+             <ul>
+                <li><a href="{% url avatar_add %}">Add</a></li>
+                <li><a href="{% url avatar_change %}">Change</a></li>
+                <li><a href="{% url avatar_delete %}">Delete</a></li>
+             </ul>
+        </div>
         {% block body %}
         {% endblock %}
         <script type="text/javascript" src="{{ STATIC_URL }}avatar_crop/js/jquery-1.4.2.min.js"></script>
