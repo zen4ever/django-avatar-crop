@@ -24,7 +24,7 @@ from avatar_crop.forms import AvatarForm, AvatarCropForm
 from avatar.models import Avatar
 
 from avatar_crop import AVATAR_CROP_MAX_SIZE
-from avatar import AVATAR_STORAGE_DIR, AVATAR_THUMB_QUALITY, AVATAR_THUMB_FORMAT
+from avatar.settings import AVATAR_STORAGE_DIR, AVATAR_THUMB_QUALITY, AVATAR_THUMB_FORMAT
 
 @login_required
 def avatar_crop(request, id=None):
