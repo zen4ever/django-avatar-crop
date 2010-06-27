@@ -2,3 +2,4 @@
 .DS_Store
 data.db
 sample_project/media/*
+*.egg-info
