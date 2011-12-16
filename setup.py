@@ -13,7 +13,7 @@ setup(
             'media/avatar_crop/css/*.css',
         ]
     },
-    version = '0.2a2',
+    version = '0.3',
     description = 'Custom avatar cropping for django-avatar',
     author = 'Andrii Kurinnyi',
     author_email = 'andrew@zen4ever.com',

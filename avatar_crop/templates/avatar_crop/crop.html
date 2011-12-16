@@ -80,7 +80,7 @@
     <div id="picture">
         <img id="avatar" src="{{ avatar.avatar.url }}" alt="Avatar"/>
     </div>
-    <form id="crop_form" action="." method="post">
+    <form id="crop_form" action="." method="post">{% csrf_token %}
         {{ form }}
         <input type="submit" value="Crop" />
     </form>

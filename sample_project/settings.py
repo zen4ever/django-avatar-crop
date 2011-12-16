@@ -13,12 +13,16 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'data.db'             # Or path to database file if using sqlite3.
-DATABASE_USER = ''             # Not used with sqlite3.
-DATABASE_PASSWORD = ''         # Not used with sqlite3.
-DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+DATABASES = {
+    'default': {
+        'ENGINE':'django.db.backends.sqlite3',    # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME':'data.db', # Or path to database file if using sqlite3.
+        'USER':'',             # Not used with sqlite3.
+        'PASSWORD':'',         # Not used with sqlite3.
+        'HOST':'',             # Set to empty string for localhost. Not used with sqlite3.
+        'PORT':''             # Set to empty string for default. Not used with sqlite3.
+    }
+}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -39,25 +43,30 @@ USE_I18N = False
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
-STATIC_ROOT = os.path.join(PROJECT_PATH, 'static')
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'site_media', 'media')
+STATIC_ROOT = os.path.join(PROJECT_PATH, 'site_media', 'static')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = '/media/'
-STATIC_URL = '/static/'
+MEDIA_URL = '/site_media/media/'
+STATIC_URL = '/site_media/static/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/admin-media/'
+ADMIN_MEDIA_PREFIX = STATIC_URL+'admin/'
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_PATH, 'static'),
+)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.auth",
+    'django.contrib.auth.context_processors.auth',
     "django.core.context_processors.request",
     "django.core.context_processors.media",
-    'staticfiles.context_processors.static_url',
+    "django.core.context_processors.static",
+    'django.core.context_processors.csrf',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -72,6 +81,7 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
@@ -91,7 +101,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
-    'staticfiles',
+    'django.contrib.staticfiles',
     'avatar_crop',
     'avatar',
 )

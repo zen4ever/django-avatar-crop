@@ -1,5 +1,5 @@
 *.pyc
 .DS_Store
 data.db
-sample_project/media/*
+sample_project/site_media/*
 *.egg-info
