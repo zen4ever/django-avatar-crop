@@ -25,3 +25,14 @@ msgstr "Нужно выбрать часть изображения не мен�
 msgid "Your new avatar has been saved successfully."
 msgstr "Ваш аватар был сохранён."
 
+#: crop.html:85
+msgid "Crop"
+msgstr "Обрезать"
+
+#: crop.html:90
+msgid "Small preview"
+msgstr "Предпросмотр малого размера"
+
+#: crop.html:96
+msgid "Large preview"
+msgstr "Предпросмотр большого размера"
