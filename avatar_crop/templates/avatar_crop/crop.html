@@ -82,18 +82,18 @@
     </div>
     <form id="crop_form" action="." method="post">{% csrf_token %}
         {{ form }}
-        <input type="submit" value="Crop" />
+        <input type="submit" value="{% trans "Crop" %}" />
     </form>
 </div>
 <div class="right_column">
     <div class="panel">
-        <h2>Small preview</h2>
+        <h2>{% trans "Small preview" %}</h2>
         <div class="img_preview" id="img_small_preview">
             <img src="{{ avatar.avatar.url }}" alt="Small preview" />
         </div>
     </div>
     <div class="panel">
-        <h2>Large preview</h2>
+        <h2>{% trans "Large preview" %}</h2>
         <div class="img_preview" id="img_big_preview">
             <img src="{{ avatar.avatar.url }}" alt="Large preview" />
         </div>
