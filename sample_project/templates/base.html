@@ -29,9 +29,9 @@
     <div class="container">
         <div class="nav">
              <ul>
-                <li><a href="{% url avatar_add %}">Add</a></li>
-                <li><a href="{% url avatar_change %}">Change</a></li>
-                <li><a href="{% url avatar_delete %}">Delete</a></li>
+                <li><a href="{% url 'avatar_add' %}">Add</a></li>
+                <li><a href="{% url 'avatar_change' %}">Change</a></li>
+                <li><a href="{% url 'avatar_delete' %}">Delete</a></li>
              </ul>
         </div>
         {% block body %}
