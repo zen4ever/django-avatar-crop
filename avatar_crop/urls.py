@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 
 urlpatterns = patterns('avatar_crop.views',
     url(r'^crop/(\d+)/$', 'avatar_crop', name='avatar_crop'),
