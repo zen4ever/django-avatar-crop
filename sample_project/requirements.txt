@@ -1,2 +1,2 @@
-Django==1.3.1
+Django==1.11.23
 -e git://github.com/ericflo/django-avatar.git#egg=django_avatar
